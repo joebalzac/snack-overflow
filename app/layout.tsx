@@ -13,7 +13,7 @@ export const metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => (
   <html lang="en">
     <body className={inter.className}>{children}</body>
-    <GoogleAnalytics gaId="G-VKYKR8RBHG" />
+    <GoogleAnalytics gaId="G-Z5Y71B9KNG" />
   </html>
 );
 
