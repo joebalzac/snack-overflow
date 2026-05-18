@@ -10,6 +10,8 @@ Cache invalidation is handled via `next: { tags: ["landing-pages"] }` on the fet
 
 The block architecture is a discriminated union — Contentful returns `__typename` on each block, and `BlockRenderer` switches on it to render the right component. Adding a new block type is: define the schema in Contentful, add a GraphQL fragment and TypeScript type, add one `case` to `BlockRenderer`.
 
+Content is fetched via Contentful's GraphQL Content API using inline fragments (`... on HeroBlock`, `... on ReviewsBlock`) so all block types resolve in a single request. All types, fragments, and fetch logic live in `lib/landing-page-api.ts`.
+
 ---
 
 ## Execution of Business Goals — Reviews Carousel
@@ -56,7 +58,7 @@ All fields live in a single `FormState` object. A generic `setField<K>` helper u
 
 ## AI Workflow
 
-Used AI heavily for TypeScript types, GraphQL query structure, ARIA patterns, and JS-to-TS conversion.
+Used AI heavily for TypeScript types, GraphQL query structure, ARIA patterns, JS-to-TS conversion, and scaffolding `BlockRenderer` and `landing-page-api.ts`.
 
 Had to course-correct in three places:
 - **GraphQL inline fragments** — AI queried review fields directly on `Entry`. Contentful requires `... on Review { }` inline fragments for linked entries. The page was returning null silently until I caught the raw error in the response.
