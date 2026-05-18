@@ -143,7 +143,7 @@ const LeadCaptureForm = () => {
       ) : (
         <>
           <h3 className="text-lg font-extrabold text-[#570000] uppercase leading-tight mb-5">
-            Don&apos;t let hunger kill your quarter.
+            Feed your team. Close your deals.
           </h3>
 
           {errors.length > 0 && (
