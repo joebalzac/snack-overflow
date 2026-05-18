@@ -29,11 +29,11 @@ Content is fetched via Contentful's GraphQL Content API using inline fragments (
 
 ## Form Architecture & Data Flow
 
-All fields live in a single `FormState` object. A generic `setField<K>` helper updates any key without a handler per field. Two derived booleans (`isFinance`, `wantsCarbFleet`) drive conditional field visibility and validation.
+All form fields are stored together in one state object. A single reusable helper updates any field, so there's no need to write a separate handler for each input. Two simple flags — whether the user is in Finance, and whether they selected C.A.R.B. Fleet — control which extra fields and warnings appear.
 
-`computeRoutingPods` is a pure function isolated from the component — easy to unit test and reason about independently.
+The routing logic (which sales pod gets the lead) lives in its own standalone function, separate from the form, so it's easy to test and update without touching the UI.
 
-**Scaling to 15+ routing rules:** Extract rules into a declarative config array of `{ condition, pod }` objects. `computeRoutingPods` becomes a filter/map over that array with a `Set` to deduplicate. New rules become config entries, not code changes.
+**Scaling routing rules:** If the routing logic grows to 15+ rules, move them into a config list instead of hardcoded `if` statements. Adding a new rule becomes a one-line config change, not a code change.
 
 ---
 
