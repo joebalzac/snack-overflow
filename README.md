@@ -1,5 +1,7 @@
 # SnackOverflow — Marketing Site
 
+LIVE URL: https://snack-overflow-puce.vercel.app/snack-overflow
+
 A landing page platform for SnackOverflow built with Next.js and Contentful. Marketers can build and publish new landing pages from the CMS without touching any code.
 
 ---
