@@ -2,7 +2,7 @@ import { getArticle } from "@/lib/api";
 import { draftMode } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function GET(request) {
+export const GET = async (request: Request) => {
   const { searchParams } = new URL(request.url);
   const secret = searchParams.get("secret");
   const slug = searchParams.get("slug");
@@ -23,4 +23,4 @@ export async function GET(request) {
 
   draftMode().enable();
   redirect(`/articles/${article.slug}`);
-}
+};

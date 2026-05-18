@@ -4,23 +4,20 @@ import { draftMode } from "next/headers";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-export async function generateStaticParams() {
+type Props = {
+  params: { slug: string };
+};
+
+export const generateStaticParams = async () => {
   const allArticles = await getAllArticles();
+  return allArticles.map((article) => ({ slug: article.slug }));
+};
 
-  return allArticles.map((article) => ({
-    slug: article.slug,
-  }));
-}
-
-export default async function KnowledgeArticlePage({
-  params,
-}) {
+const KnowledgeArticlePage = async ({ params }: Props) => {
   const { isEnabled } = draftMode();
   const article = await getArticle(params.slug, isEnabled);
 
-  if (!article) {
-    notFound();
-  }
+  if (!article) notFound();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-white">
@@ -38,9 +35,9 @@ export default async function KnowledgeArticlePage({
             <Image
               alt="Article Image"
               className="aspect-video w-full overflow-hidden rounded-xl object-cover"
-              height="365"
+              height={365}
               src={article.articleImage.url}
-              width="650"
+              width={650}
             />
             <div className="space-y-4 md:space-y-6">
               <div className="space-y-2">
@@ -54,4 +51,6 @@ export default async function KnowledgeArticlePage({
       </section>
     </main>
   );
-}
+};
+
+export default KnowledgeArticlePage;
